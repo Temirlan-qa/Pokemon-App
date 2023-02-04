@@ -29,18 +29,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         'subtext':
             'Acesse uma vasta lista de Pokémon de\n todas as gerações já feitas pela Nintendo',
         "image": "assets/img/onboarding_1.png",
+        "btn_text" : "Continuar"
       },
       {
         "text": 'Mantenha sua\n Pokédex atualizada',
         'subtext':
             'Cadastre-se e mantenha seu perfil,\n pokémon favoritos, configurações e muito\n mais, salvos no aplicativo, mesmo sem\n conexão com a internet.',
         "image": "assets/img/onboarding_2.png",
+        "btn_text" : "Vamos começar!"
       },
       {
         "text": 'Está pronto para essa\n aventura?',
         "image": "assets/img/onboarding_3.png",
         'subtext':
             'Basta criar uma conta e começar a explorar\n o mundo dos Pokémon hoje!',
+        "btn_text" : "Criar conta"
       },
     ];
     return Scaffold(
@@ -121,18 +124,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 24),
                     Visibility(
                       visible: 2 > currentPage,
-                      child: SizedBox(
-                        height: 12,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(
-                            splashData.length-1,
-                            (index) => buildDot(index: index),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            height: 12,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                splashData.length-1,
+                                (index) => buildDot(index: index),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -198,7 +205,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             );
                           },
                           child: Text(
-                            currentPage >=2 ? 'Criar conta' : 'Continuar',
+                            currentPage == 0 ? splashData[0]['btn_text']: currentPage == 1 ? splashData[1]['btn_text'] : splashData[2]['btn_text'],
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -207,6 +214,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ),
                       ),
+                    ),
+                    Visibility(
+                        visible: currentPage ==2,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                              'Ja tenho uma conta',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF173EA5)
+                            ),
+                          ),
+                        ),
                     ),
                     const SafeArea(
                       bottom: false,
@@ -219,7 +246,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               Visibility(
-                visible: currentPage >= 2,
+                visible: currentPage == 2,
                 child: Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
