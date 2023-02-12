@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:another_transformer_page_view/another_transformer_page_view.dart';
-import 'package:pokemon_app/presentation/onboarding/widgets/transformer.dart';
+import 'package:pokemon_app/presentation/onboarding/widgets/build_dot_widget.dart';
+import 'package:pokemon_app/presentation/onboarding/widgets/transformer_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -135,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: List.generate(
                                 splashData.length-1,
-                                (index) => buildDot(index: index),
+                                (index) => buildDot(index: index, currentPage:currentPage),
                               ),
                             ),
                           ),
@@ -273,21 +274,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  AnimatedContainer buildDot({int? index}) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
-      margin: const EdgeInsets.only(right: 8),
-      height: 9,
-      width: currentPage == index  ? 40 : 9,
-      decoration: BoxDecoration(
-        color: currentPage == index
-            ? const Color(0xFF173EA5)
-            : const Color(0xFF4565B7).withOpacity(0.25),
-        borderRadius: BorderRadius.circular(11),
       ),
     );
   }
